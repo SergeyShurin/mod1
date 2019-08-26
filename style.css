@@ -1,0 +1,16 @@
+body,
+html {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    border: 0;
+    background-color: white;
+}
+
+#c {
+    width: 100vw;
+    height: 100vh;
+    display: block;
+}
