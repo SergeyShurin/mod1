@@ -18,25 +18,18 @@
     
     uniform mat4 u_matrix;
     uniform float u_water_level;
-    uniform vec4 u_water_color;
+    // uniform vec4 u_water_color;
     uniform vec4 u_color;
     varying vec4 v_color;
         
     varying vec3 v_normal;
     
     void main() {
-        if (a_position.y > -3.0)
-        {
-            v_color = u_water_color;
-        }
-        else
-        {
-            v_color = u_color;
-        }
+
         gl_Position = u_matrix * a_position;
         
         v_normal = a_normal;
-        // v_color = u_color;
+        v_color = u_color;
     }
 </script>
 <script src="fragment" id="2d-fragment-shader" type="notjs">
@@ -52,6 +45,38 @@
         gl_FragColor.rgb *= light;
     } 
 </script>
+
+
+
+
+
+<script src="vertex" id="3d-vertex-shader-water" type="notjs">
+    attribute vec4 a_position;
+    attribute vec3 a_normal;
+    
+    uniform mat4 u_matrix;
+    varying vec3 v_normal;
+    
+    void main() {
+        
+        gl_Position = u_matrix * a_position;
+        v_normal = a_normal;
+    }
+</script>
+<script src="fragment" id="3d-fragment-shader-water" type="notjs">
+    precision mediump float; 
+    varying vec3 v_normal;
+    uniform vec3 u_reverseLightDirection;
+    uniform vec4 u_color;
+        
+    void main() {
+        vec3 normal = normalize(v_normal);
+        float light = dot(normal, u_reverseLightDirection);
+        gl_FragColor = u_color;
+        gl_FragColor.rgb *= light;
+    } 
+</script>
+<script src="cube.js"></script>
 <script src="camera.js"></script>
 <script src="map.js"></script>
 <script src="tools.js"></script>
