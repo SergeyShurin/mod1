@@ -91,12 +91,40 @@ let normalBuffer = wgl.bindBuffer(dataNormal);
 
 
 
+let water = [
+    120, 1, 2,
+    0, 15, 2,
+    120, 1, 23,
+    0, 1, 23,
+    0, 12, 2,
+    10, 1, 2,
+    20, 15, 2,
+    0, 21, 23,
+    20, 1, 323,
+    0, 12, 32,
+    0, 13, 2,
+    0, 154, 2,
+    20, 1, 23,
+    0, 41, 23,
+    0, 142, 2,
+    10, 41, 42,
+    20, 154, 42,
+    0, 214, 23,
+    20, 1, 323,
+    340, 412, 432,
+]
 
+let cubeWater = new CubeWater(10, water);
+// console.log(cube.cubeCoords)
 let cube = new Cube(100, 0, 0, 0);
-console.log(cube.cubeCoords)
-let cubeArr = cube.toArray();
+let cubeArr = cube.toArray(cubeWater.waterCoords);
 let cubeNormal = map.toNormal(dataArray);
 console.log(cubeArr);
+
+// console.log(cube.cubeCoords)
+// let cubeArr = cube.toArray();
+// let cubeNormal = map.toNormal(dataArray);
+// console.log(cubeArr);
 wgl2 = new WGL("c", "3d-vertex-shader-water", "3d-fragment-shader-water");
 
 
@@ -110,7 +138,6 @@ let waterPositionBuffer = wgl.bindBuffer(cubeArr);
 console.log(cubeArr)
 // let waterDataNormal = map.toNormal(waterDataArray);
 let waterNormalBuffer = wgl.bindBuffer(cubeNormal);
-
 
 
 drawScene(wgl.gl, wgl.program);
