@@ -47,12 +47,13 @@ function drawScene(gl, program) {
     }
     
     function drawWater() {
+        gl.uniform4fv(waterColorLocation, waterColor);
         wgl.takeBufferData(waterPositionLocation, waterPositionBuffer, 3, gl.FLOAT, false, 0, 0);
         wgl.takeBufferData(waterNormalLocation, waterNormalBuffer, 3, gl.FLOAT, false, 0, 0);
         gl.drawArrays(gl.TRIANGLES, 0, cubeArr.length / 3);
     }
     
-    // drawSurface();
+    drawSurface();
     drawWater();
 }
 
@@ -93,41 +94,40 @@ let normalBuffer = wgl.bindBuffer(dataNormal);
 // это массив с центрами кубов
 let water = [
     120, 1, 2,
-    0, 15, 2,
-    120, 1, 23,
-    0, 1, 23,
-    0, 12, 2,
-    10, 1, 2,
-    20, 15, 2,
-    0, 21, 23,
-    20, 1, 323,
-    0, 12, 32,
-    0, 13, 2,
-    0, 154, 2,
-    20, 1, 23,
-    0, 41, 23,
-    0, 142, 2,
-    10, 41, 42,
-    20, 154, 42,
-    0, 214, 23,
-    20, 1, 323,
-    340, 412, 432,
+    // 0, 15, 2,
+    // 120, 1, 23,
+    // 0, 1, 23,
+    // 0, 12, 2,
+    // 10, 1, 2,
+    // 20, 15, 2,
+    // 0, 21, 23,
+    // 20, 1, 323,
+    // 0, 12, 32,
+    // 0, 13, 2,
+    // 0, 154, 2,
+    // 20, 1, 23,
+    // 0, 41, 23,
+    // 0, 142, 2,
+    // 10, 41, 42,
+    // 20, 154, 42,
+    // 0, 214, 23,
+    // 20, 1, 323,
+    // 340, 412, 432,
 ]
 
 let cube = new Cube(10, 0, 0, 0);
-let cubeWater = new CubeWater(10, water);
-// console.log(cubeWater.waterCoords);
-let cubeArr = cube.toArray(cubeWater.waterCoords);
-let cubeNormal = map.toNormal(cubeArr);
-// console.log(cubeArr.length);
-// console.log(cubeNormal.length);
+// let cubeWater = new CubeWater(1, water);
+// let cubeArr = cube.toArray(cubeWater.waterCoords);
+// let cubeNormal = map.toNormal(cubeArr);
 
-// console.log(cube.cubeCoords)
 // let cubeArr = cube.toArray();
-// let cubeNormal = map.toNormal(dataArray);
-// console.log(cubeArr);
+// let cubeNormal = map.toNormal(cubeArr);
 wgl2 = new WGL("c", "3d-vertex-shader-water", "3d-fragment-shader-water");
 
+
+let flatWater = new FlatWater(300, map.points);
+let cubeArr = cube.toArray(flatWater.coords);
+let cubeNormal = map.toNormal(cubeArr);
 
 let waterPositionLocation = wgl2.getAttrLoc("a_position");
 let waterNormalLocation = wgl2.getAttrLoc("a_normal");
