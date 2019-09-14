@@ -90,7 +90,7 @@ let dataNormal = map.toNormal(dataArray);
 let normalBuffer = wgl.bindBuffer(dataNormal);
 
 
-
+// это массив с центрами кубов
 let water = [
     120, 1, 2,
     0, 15, 2,
@@ -114,12 +114,13 @@ let water = [
     340, 412, 432,
 ]
 
+let cube = new Cube(10, 0, 0, 0);
 let cubeWater = new CubeWater(10, water);
-// console.log(cube.cubeCoords)
-let cube = new Cube(100, 0, 0, 0);
+// console.log(cubeWater.waterCoords);
 let cubeArr = cube.toArray(cubeWater.waterCoords);
-let cubeNormal = map.toNormal(dataArray);
-console.log(cubeArr);
+let cubeNormal = map.toNormal(cubeArr);
+// console.log(cubeArr.length);
+// console.log(cubeNormal.length);
 
 // console.log(cube.cubeCoords)
 // let cubeArr = cube.toArray();
@@ -135,7 +136,6 @@ let waterReverseLightDirectionLocation = wgl2.getUniformLoc("u_reverseLightDirec
 let waterMatrixLocation = wgl2.getUniformLoc("u_matrix");
 // let waterDataArray = cube.toArray();
 let waterPositionBuffer = wgl.bindBuffer(cubeArr);
-console.log(cubeArr)
 // let waterDataNormal = map.toNormal(waterDataArray);
 let waterNormalBuffer = wgl.bindBuffer(cubeNormal);
 

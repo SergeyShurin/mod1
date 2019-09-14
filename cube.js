@@ -92,7 +92,7 @@ class CubeWater {
         // this.color = color || [0.1, 0.9, 0.6, 1];
         let arr = [];
         for (let i = 0; i < array.length; i += 3) {
-            let newCube = new Cube(size, array[0], array[1], array[2]);
+            let newCube = new Cube(size, array[i], array[i + 1], array[i + 2]);
             let newArr = newCube.cubeCoords;
             arr = arr.concat(newArr);
         }
